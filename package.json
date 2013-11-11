@@ -1,0 +1,12 @@
+{
+  "name": "nodelivemix",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "~3.0.0rc4",
+    "timbre" : "~13.05.01"
+  },
+  "scripts": {
+    "start": "npm install && node server.js"
+  }
+}

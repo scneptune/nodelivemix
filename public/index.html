@@ -14,6 +14,7 @@
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
     <link href='css/style.css' rel='stylesheet' />
     <script src='js/modernizr-2.0.6.min.js'></script>
+
   </head>
   <body>
     <div id='container'>
@@ -24,6 +25,16 @@
     <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
     <script>
       window.jQuery || document.write("<script src='js/jquery-1.10.2.min.js'>\x3C/script>")
+    </script>
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script>
+    var SC;
+      SC.initialize({
+          client_id: "7974b5d410ba881ba78d78078a4197c1",
+          client_secret : "77b487cc38666703febaf0df4850f815",
+          token: "https://api.soundcloud.com/oauth2/token",
+          redirect_uri: "/",
+        });
     </script>
     <script src='js/plugins.js'></script>
     <script src='js/script.js'></script>
