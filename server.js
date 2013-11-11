@@ -6,6 +6,9 @@ var express = require('express'),
  http = require('http'),
   util = require('util'),
   T = require('timbre'),
+  fs = require('fs'),
+  lame = require('lame'),
+  speaker = require('speaker'),
   request = require('request'),
   mp3_decode = require('timbre/src/extras/mp3_decode'),
   jsmad = require('timbre/src/extras/jsmad'),
@@ -38,30 +41,33 @@ SC = {
         };
 
 src = 'http://api.soundcloud.com/tracks/109216345/stream?client_id='+ SC.client_id;
-
-request(src, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-      T("audio").loadthis(body, function() {
-    this.play();
-  }).on("ended", function() {
-    this.pause();
+// console.log(request.get(src), "this is the first request")
+testing = request({
+  uri : src,
+  method: 'GET',
+  timeout: 10000,
+  followRedirect: true,
+}, function (error, response, body){
+  return body;
 });
-  }
+//write that shit in binary
+testing.pipe(fs.createWriteStream('test.mp3')).on('finish', function (){
+  // oooh that juicy 128kbp of mp3!
+  console.log(fs.createReadStream('test.mp3').pipe(new lame.Decoder));
+  fs.createReadStream('test.mp3').pipe(new lame.Decoder).on('format', console.log).pipe(new speaker);
 });
 
 
-console.log();
-// sound = timbre('audio').loadthis('http://api.soundcloud.com/tracks/33925813/stream?client_id='+ SC.client_id, function(){
-// }).on('ended', function (){
-//   this.pause();
-// });
+// console.log(T('audio'));
 
-
+// T('audio').load(item, function (){
+//   console.log(item)
+//   this.play();
+// })
 
 // Routes
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
-  return sound;
 });
 
 app.get('/blank', function (req, res) {
