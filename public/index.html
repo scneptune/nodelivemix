@@ -26,21 +26,16 @@
     <script>
       window.jQuery || document.write("<script src='js/jquery-1.10.2.min.js'>\x3C/script>")
     </script>
-    <script src="../node_modules/timbre/timbre.js"></script>
-    <script src="//connect.soundcloud.com/sdk.js"></script>
-    <script>
-    var SC;
-      SC.initialize({
-          client_id: "7974b5d410ba881ba78d78078a4197c1",
-          client_secret : "77b487cc38666703febaf0df4850f815",
-          token: "https://api.soundcloud.com/oauth2/token",
-          redirect_uri: "/",
-        });
-      sound = timbre('audio').loadthis('http://api.soundcloud.com/tracks/33925813/stream?client_id='+ SC.client_id, function(){
-}).on('ended', function (){
-  this.pause();
-});
+    <script src="/node_modules/timbre/timbre.dev.js"></script>
+    <script src="/node_modules/timbre/src/extras/jsmad.js"></script>
+    <script src="/node_modules/timbre/src/extras/mp3_decode.js"></script>
+    <script type="text/javascript">
+        T('audio').loadthis('../test.mp3', function () {
+          this.play();
+        })
     </script>
+
+
     <script src='js/plugins.js'></script>
     <script src='js/script.js'></script>
     <script>

@@ -6,6 +6,7 @@ var express = require('express'),
  http = require('http'),
   util = require('util'),
   T = require('timbre'),
+  Throttle = require('throttle'),
   fs = require('fs'),
   lame = require('lame'),
   speaker = require('speaker'),
@@ -41,7 +42,8 @@ SC = {
         };
 
 src = 'http://api.soundcloud.com/tracks/109216345/stream?client_id='+ SC.client_id;
-// console.log(request.get(src), "this is the first request")
+
+// make an api get request using our API key
 testing = request({
   uri : src,
   method: 'GET',
@@ -52,12 +54,25 @@ testing = request({
 });
 //write that shit in binary
 testing.pipe(fs.createWriteStream('test.mp3')).on('finish', function (){
-  // oooh that juicy 128kbp of mp3!
-  console.log(fs.createReadStream('test.mp3').pipe(new lame.Decoder));
-  fs.createReadStream('test.mp3').pipe(new lame.Decoder).on('format', console.log).pipe(new speaker);
+    // oooh that juicy 128kbps of mp3!
+  unthrottledStream = fs.createReadStream('test.mp3');
+  // adding a stream bit throttler, which may crappify this is a little
+  // but it will prevent under buffering of the stream
+  throt = new Throttle({bps: 800 * 1024, chunksize: 200});
+  // unthrottledStream.pipe(throt).pipe(new lame.Decoder).pipe(new speaker);
+  unthrottledStream.pipe(throt).pipe(new lame.Decoder).on('format', function(){
+    console.log(this._transformState.writechunk);
+    console.log(' ==================== DIVIDER ===============');
+    // this.pipe(new speaker);
+  });
+
 });
+testUnthrottle = fs.createReadStream('TellMeWhy.mp3');
+throtTest = new Throttle({bps: 200 * 1024, chunksize: 150});
 
-
+testUnthrottle.pipe(throtTest).pipe( new lame.Decoder).on('format', function (){
+  console.log(this, "========= OTHER MP3========");
+})
 // console.log(T('audio'));
 
 // T('audio').load(item, function (){
@@ -73,11 +88,10 @@ app.get('/', function (req, res) {
 app.get('/blank', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
-
-app.get('/twitterProfile/:num', function (req, res){
-  res.contentType('application/json');
-  count = req.param('num');
+app.get('/node_modules', function(req, res) {
+  res.sendfile(__dirname + '/node_modules/');
 });
 
+  // count = req.param('num');
 var server = app.listen(app.settings.port);
 console.log("Express server is listening on http://%s:%s in '%s' mode", server.address().address, server.address().port, app.settings.env);
