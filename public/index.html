@@ -4,51 +4,103 @@
 <!--[if IE 8]>    <html lang="en" class="no-js ie8 oldie"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class='no-js' lang='en'>
-  <!--<![endif]-->
-  <head>
-    <meta charset='utf-8' />
-    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
-    <title></title>
-    <meta content='' name='description' />
-    <meta content='' name='author' />
-    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
-    <link href='css/style.css' rel='stylesheet' />
-    <script src='js/modernizr-2.0.6.min.js'></script>
+	<!--<![endif]-->
+	<head>
+		<meta charset='utf-8' />
+		<meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+		<title></title>
+		<meta content='' name='description' />
+		<meta content='' name='author' />
+		<meta content='width=device-width, initial-scale=1.0' name='viewport' />
+		<link href='css/style.css' rel='stylesheet' />
+		<link href='css/jquery-ui-1.10.3.custom.css' rel='stylesheet' />
+		<script src='js/vendor/modernizr-2.0.6.min.js'></script>
 
-  </head>
-  <body>
-    <div id='container'>
-      <header></header>
-      <div id='main' role='main'></div>
-      <footer></footer>
-    </div>
-    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-    <script>
-      window.jQuery || document.write("<script src='js/jquery-1.10.2.min.js'>\x3C/script>")
-    </script>
-    <script src="/node_modules/timbre/timbre.dev.js"></script>
-    <script src="/node_modules/timbre/src/extras/jsmad.js"></script>
-    <script src="/node_modules/timbre/src/extras/mp3_decode.js"></script>
-    <script type="text/javascript">
-        T('audio').loadthis('../test.mp3', function () {
-          this.play();
-        })
-    </script>
+	</head>
+	<body>
+		<div id='container'>
+			<header></header>
+			<div id='main' role='main' class='mixer'>
+			<div id='track1'></div><div id='track2'></div>
+			<div id='fx-box'>
+				<div class='left-equalizer'>
+					<h4 class="eq-label"> EQ HI </h4>
+					<div class='knob eq-hi'>	
+						<div class="top"></div>
+		                		<div class="base"></div>
+					</div>
+					<h4 class="eq-label">EQ MID </h4>
+					<div class='knob eq-mid'> 	
+						<div class="top"></div>
+		                		<div class="base"></div>
+					</div>
+					<h4 class="eq-label">EQ LOW </h4>
+					<div class='knob eq-low'>	
+						<div class="top"></div>
+		                		<div class="base"></div>
+	                		</div>
+	                	</div>
+	                	<div class='right-equalizer'>
+					<h4 class="eq-label"> EQ HI </h4>
+					<div class='knob eq-hi'>	
+						<div class="top"></div>
+		                		<div class="base"></div>
+					</div>
+					<h4 class="eq-label">EQ MID </h4>
+					<div class='knob eq-mid'> 	
+						<div class="top"></div>
+		                		<div class="base"></div>
+					</div>
+					<h4 class="eq-label">EQ LOW </h4>
+					<div class='knob eq-low'>	
+						<div class="top"></div>
+		                		<div class="base"></div>
+	                		</div>
+	                	</div>
+			</div>
+			<div id='crossfader'><span class='slider'></div>
+			<div id='trackLibrary'>
+				<header>
+					<label for='searchbox'>Soundcloud Search :</label>
+					<input name='searchbox' type='text-field' class='soundcloud-search' value='Input the search value for the artist of song you are looking for' /> <input type='submit'  name='submit' class='submit-search'/>
+				</header>
+				<div class='results-table'>
+					<ul class='soundcloud-results' />
+				</div>
+				<span class='pager'>next page >></span>
+			</div>
+			<footer></footer>
+		</div>
+		<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+		<script>
+			window.jQuery || document.write("<script src='js/vendor/jquery-1.10.2.min.js'>\x3C/script>");
+		</script>
+		<script src='js/vendors/jquery-ui-1.10.3.custom.min.js'></script>
+		<script src="js/vendors/timbre-client.min.js"></script>
+
+		<script type="text/javascript">
+
+			$('slider').slider();
+			console.log(T('mediastream'));
+				// T('audio').loadthis(, function () {
+				//   this.play();
+				// })
+		</script>
 
 
-    <script src='js/plugins.js'></script>
-    <script src='js/script.js'></script>
-    <script>
-      var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"],["_trackPageLoadTime"]];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-      g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
-      s.parentNode.insertBefore(g,s)}(document,"script"));
-    </script>
-    <!--[if lt IE 7]>
-    <script src='//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js'></script>
-    <script>
-      window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})});
-    </script>
-    <![endif]-->
-  </body>
+		<script src='js/plugins.js'></script>
+		<script src='js/script.js'></script>
+		<script>
+			var _gaq=[["_setAccount","UA-XXXXX-X"],["_trackPageview"],["_trackPageLoadTime"]];
+			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+			g.src=("https:"==location.protocol?"//ssl":"//www")+".google-analytics.com/ga.js";
+			s.parentNode.insertBefore(g,s)}(document,"script"));
+		</script>
+		<!--[if lt IE 7]>
+		<script src='//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js'></script>
+		<script>
+			window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})});
+		</script>
+		<![endif]-->
+	</body>
 </html>
