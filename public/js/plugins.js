@@ -17,6 +17,7 @@ window.log = function(){
 
 
 // place any jQuery/helper plugins in here, instead of separate, slower script files.
+
 /**
  * @name		jQuery KnobKnob plugin
  * @author		Martin Angelov
@@ -25,14 +26,7 @@ window.log = function(){
  * @license		MIT License
  */
 
-(function($){
-	$.fn.knobKnob = function(props){
-		var options = $.extend({
-			snap: 0,
-			value: 0,
-			turn: function(){}
-		}, props || {});
-
+(function($){$.fn.knobKnob = function(props){	var options = $.extend({snap: 0, value: 0, turn: function(){}}, props || {});
 		return this.each(function(){
 			var knob = $(this),
 				knobTop = knob.find('.top'),
@@ -53,10 +47,8 @@ window.log = function(){
 					y : offset.top + knob.height()/2,
 					x: offset.left + knob.width()/2
 				};
-				
 				var a, b, deg, tmp,
 					rad2deg = 180/Math.PI;
-				
 				knob.on('mousemove.rem touchmove.rem',function(e){
 					e = (e.originalEvent.touches) ? e.originalEvent.touches[0] : e;
 					a = center.y - e.pageY;
@@ -89,7 +81,6 @@ window.log = function(){
 					if(Math.abs(tmp - lastDeg) > 180){
 						return false;
 					}
-					
 					currentDeg = tmp;
 					lastDeg = tmp;
 					knobTop.css('transform','rotate('+(currentDeg)+'deg)');
@@ -101,6 +92,8 @@ window.log = function(){
 					doc.off('.rem');
 					// Saving the current rotation
 					rotation = currentDeg;
+					exposeDeg = rotation;
+					console.log(exposeDeg)
 					// Marking the starting degree as invalid
 					startDeg = -1;
 				});
