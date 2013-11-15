@@ -7,7 +7,9 @@ $('.knob').knobKnob({
         ratio = 0.80;
     }
 });
-
+$('slider').slider();
+T('mediastream')
+console.log();
 
 
 
