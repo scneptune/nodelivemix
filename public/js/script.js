@@ -8,7 +8,25 @@ $('.knob').knobKnob({
     }
 });
 $('slider').slider();
-T('mediastream')
+TestTrack1 = {
+	track: 'A',
+	trackId: '119795985'
+}
+
+
+function getTurntableTrack (TurntableTrack) {
+	audioSide = $('audio[data-turntable="'+ TurntableTrack.track +'"]');
+	scId = TurntableTrack.trackId;
+}
+
+getTurntableTrack(TestTrack1);
+src= '../test.mp3'
+T("audio").loadthis(src, function () {
+}).play().on("ended", function () {
+  this.pause();
+});
+
+T('mediastream');
 console.log();
 
 

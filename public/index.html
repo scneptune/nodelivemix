@@ -21,7 +21,8 @@
 		<div id='container'>
 			<header></header>
 			<div id='main' role='main' class='mixer'>
-			<div id='track1'></div><div id='track2'></div>
+			<div id='track1'><audio data-turntable='A' src='/track1/' controls></audio></div>
+			<div id='track2'><audio data-turntable='B' src='/track2/' controls></audio></div>
 			<div id='fx-box'>
 				<div class='left-equalizer'>
 					<h4 class="eq-label"> EQ HI </h4>
@@ -76,6 +77,8 @@
 			window.jQuery || document.write("<script src='js/vendor/jquery-1.10.2.min.js'>\x3C/script>");
 		</script>
 		<script src='js/vendors/jquery-ui-1.10.3.custom.min.js'></script>
+		<script src='js/vendors/jsmad.js'></script>
+		<script src='js/vendors/mp3_decoder.js'></script>
 		<script src="js/vendors/timbre-client.min.js"></script>
 
 		<script type="text/javascript">
