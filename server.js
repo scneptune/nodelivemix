@@ -69,22 +69,32 @@ function getMp3Stream(trackId) {
   return fs.createReadStream(hostedMp3).pipe(throt);
 }
 
+app.param('trackId', function(req, res, getMp3Stream){
+
+  if (req.trackId !== '') {
+  console.log('This is track id inside of the app.param function'.yellow);
+    console.log('alt of above'.yellow);
+    console.log(trackId);
+    console.log('we have a winner, loading the track...'.blue);
+    getMp3Stream(trackId);
+  } else {
+    return console.log('not a trackId'.red);
+  }
+});
+
 // Routes
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
 });
 
-app.param('scTrackId', function(){
-  var scTrackId;
-  return console.log(scTrackId);
-});
+console.log(app.get('track1/121064556', function (req, res){}));
 
-app.get('/track1/:scTrackId', function (req, res, scTrackId){
-  // console.log(req);
-  var trackId = req.param('scTrackId'), track1stream = getMp3Stream(trackId);
-  res.set({'Content-Type': 'audio/mp3'});
-  return track1stream;
-});
+// app.get('/track1/:trackId', function (req, res, trackId){
+//   // console.log(req);
+//   // var trackId = req.param('trackId'), track1stream = getMp3Stream(trackId);
+//   res.set({'Content-Type': 'audio/mp3'});
+//   // return track1stream;
+// });
 
 app.get('/blank', function (req, res) {
   res.sendfile(__dirname + '/public/index.html');
@@ -95,14 +105,13 @@ var outsiteref = app;
   // count = req.param('num');
 var server = app.listen(app.settings.port);
 
-
-var bs = new binaryjs.BinaryServer({server: server, path: 'track1/:scTrackId'});
-
-bs._server.prototype.appref =  console.log('im a prototyped method');
-
+binaryjs.BinaryServer.prototype.appRef = function (getRef) {
+  return console.log(getRef);
+};
+var bs = new binaryjs.BinaryServer({server: server, path: 'track1/'});
+// console.log(bs.appRef(app));
 console.log('the binaryserver'.red);
 console.log(bs);
-console.log(bs._server.app);
 bs.on('connection', function(client){
   console.log(client, 'this is the client');
 });
