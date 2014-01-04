@@ -85,7 +85,7 @@ app.get('/blank', function (req, res) {
 });
 
   // count = req.param('num');
-var server = app.listen(app.settings.port);;
+var server = app.listen(app.settings.port);
 
 var bs = new binaryjs.BinaryServer({server: server, route: 'track2enendp'});
 console.log(bs, 'the binaryserver'.red);
