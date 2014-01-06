@@ -1,0 +1,3 @@
+[submodule "node_modules/binaryjs"]
+	path = node_modules/binaryjs
+	url = git@github.com:binaryjs/binaryjs.git
